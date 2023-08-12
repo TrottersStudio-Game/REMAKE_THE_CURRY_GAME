@@ -102,7 +102,7 @@
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
+        var instance = createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
@@ -112,8 +112,18 @@
         }).catch((message) => {
           alert(message);
         });
+
+        console.log("hii");
+        console.log(instance);
+        instance.then(() => {
+
+          ToggleUnity();
+          console.log("bye");
+        })
       };
       document.body.appendChild(script);
+      function isDeviceIOS(){var iosQuirkPresent=function(){var audio=new Audio();audio.volume=0.5;return audio.volume===1};var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);var isAppleDevice=navigator.userAgent.includes('Macintosh');var isTouchScreen=navigator.maxTouchPoints>=1;return isIOS||(isAppleDevice&&(isTouchScreen||iosQuirkPresent()))};function ToggleUnity(){if(isDeviceIOS()){unityInstance.SendMessage('Final Canvas','DisplaySMUI')}}
+      
     </script>
   </body>
 </html>
